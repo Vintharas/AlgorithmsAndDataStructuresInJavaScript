@@ -1,11 +1,14 @@
 function LinkedList(value){
-    let head = Node(value);
+    let head;
+
+    if (value) head = Node(value);
 
     return {
         get head(){ return head;},
         hasItem,
         append,
         remove,
+        removeFirst,
         insert
     };
 
@@ -22,19 +25,24 @@ function LinkedList(value){
     }
 
     function append(value){
-        let lastItem = head;
-        while (lastItem.next !== null) lastItem = lastItem.next;
-        lastItem.next = Node(value);
+        if (!head) head = Node(value);
+        else {
+            let lastItem = head;
+            while (lastItem.next !== null) lastItem = lastItem.next;
+            lastItem.next = Node(value);
+        }
     }
 
     function insert(value){
-        let currentHead = head;
-        head = Node(value, /* next */ currentHead);
+        if (!head) head = Node(value);
+        else {
+            let currentHead = head;
+            head = Node(value, /* next */ currentHead);
+        }
     }
     
     function remove(value){
         if (!hasItem(value)) {
-            console.log('here');
             throw new Error(`Item ${value} is not in the list`);
         }
         if (value === head.value) {
@@ -57,6 +65,16 @@ function LinkedList(value){
         }
     }
 
+    function removeFirst(){
+        if (head) {
+            var value = head.value;
+            head = head.next;
+            return value;
+        } else {
+            throw new Error('no items to remove');
+        }
+    }
+
 }
 
 function Node(value, next=null){
@@ -65,3 +83,15 @@ function Node(value, next=null){
         next
     };
 }
+
+function Stack(){
+    let list = new LinkedList(); 
+
+    return {
+        push: value => list.insert(value),
+        hasItem: value => list.hasItem(value),
+        pop: () => list.removeFirst()
+    };
+}
+
+
