@@ -18,6 +18,7 @@
  *   - remove an item from the list by value
  *   - should throw error when trying to remove an item that doesn't exist
  *   - remove first item of the list
+ *   - get the nth-to-last element of the list
  *
  */
 
@@ -162,6 +163,33 @@ describe("Linked Lists", () => {
             // Assert
             expect(value).toBe(5);
         });
+
+        it("should be able to get the last element of the list", () => {
+            // Arrange, Act
+            var value = list.getLast();
+            // Assert
+            expect(value).toBe(9)
+        });
+
+        it("should be able to get the second to last element of the list", () => {
+            // Arrange, Act
+            var value = list.getNthLast(2);
+            // Assert
+            expect(value).toBe(8); 
+        });
+
+        it("should be able to get the third to last element of the list", () => {
+            // Arrange, Act
+            var value = list.getNthLast(3);
+            // Assert
+            expect(value).toBe(3); 
+        });
+
+        it("should throw an error when you try to get the seventh to last element of the list which doesn't exist", () => {
+            // Arrange, Act, Assert
+            expect(() => list.getNthLast(100)).toThrowError();
+        });
+
     
     });
 
