@@ -7,7 +7,8 @@ function Tree(value){
     // public API
     return {
         get root() { return root;},
-        add
+        add,
+        addRecursively
     };
 
     function add(value){
@@ -26,13 +27,37 @@ function Tree(value){
         }
 
     }
+
+    function addRecursively(value){
+        if (!root) { return root = TreeNode(value);}
+        return addRecursivelyOnNode(root, value);
+    }
+
+    function addRecursivelyOnNode(node, value){
+        // simplified to add minor or equal to left child
+        if (value <= node.value) {
+           if (!node.left) { 
+               return node.left = TreeNode(value);
+           }
+           return addRecursivelyOnNode(node.left, value);
+        } else {
+           if (!node.right) { 
+               return node.right = TreeNode(value);
+           }
+           return addRecursivelyOnNode(node.right, value);
+        }
+        throw new Error();
+    }
 }
 
 // TODO: Need to setup ES6 modules
 // right now everything is declared globally. Oh no! :O
 function TreeNode(value){
+    let left, right;
     return {
-        value
+        value,
+        left,
+        right
     };
 }
 

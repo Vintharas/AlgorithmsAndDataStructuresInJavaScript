@@ -11,7 +11,15 @@
  * - Create a tree
  *   - Empty
  *   - With one node
- *
+ * - Having an empty tree
+ *   - add item to tree which becomes the root
+ * - Having a tree with a root
+ *   - add item smaller than root creates left child
+ *   - add item greater than root creates right child
+ *   - add item equal to root, try to add to left then try right, otherwise try under left child
+ * - Having a tree with two leaves
+ *   - add item 
+ *   - add item (implement recursively)
  *
  */
 
@@ -123,6 +131,32 @@ describe("Binary Search Tree", () => {
                     // Assert
                     expect(tree.root.left.left).toBeDefined();
                     expect(tree.root.left.left.value).toBe(1);
+                });
+            });
+        });
+
+        describe("When I add an item smaller than the root", () => {
+            describe("And smaller than its left child", () => {
+                describe("And I want to solve this recursively", () => {
+                    it("Should become the roots left child's child", () => {
+                        // Arrange, Act
+                        tree.addRecursively(1);
+                        // Assert
+                        expect(tree.root.left.left).toBeDefined();
+                        expect(tree.root.left.left.value).toBe(1);
+                    });
+                });
+            });
+
+            describe("And bigger than its right child", () => {
+                describe("And I want to solve this recursively", () => {
+                    it("Should become the roots right child's child", () => {
+                        // Arrange, Act
+                        tree.addRecursively(6);
+                        // Assert
+                        expect(tree.root.left.right).toBeDefined();
+                        expect(tree.root.left.right.value).toBe(6);
+                    });
                 });
             });
         });
