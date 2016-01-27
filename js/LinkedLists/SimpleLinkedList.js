@@ -1,5 +1,5 @@
 function LinkedList(value){
-    let head;
+    let head = null;
 
     if (value) head = Node(value);
 
@@ -115,7 +115,8 @@ function Stack(){
     return {
         push: value => list.insert(value),
         hasItem: value => list.hasItem(value),
-        pop: () => list.removeFirst()
+        pop: () => list.removeFirst(),
+        isEmpty: () => list.head == null
     };
 }
 

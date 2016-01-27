@@ -237,6 +237,37 @@ describe("Binary Search Tree", () => {
                 expect(nodesTraversed.join(',')).toBe('10,1,2,20,30');
             });
 
+            it("I should be able to traverse it in Pre-order implemented iteratively", () => {
+                // Arrange
+                let nodesTraversed = [];
+                // Act 
+                tree.traversePreOrderIteratively((n) => nodesTraversed.push(n.value));
+                // Assert
+                expect(nodesTraversed.join(',')).toBe('10,1,2,20,30');
+            });
+
+            it("I should be able to traverse it in Pre-order implemented iteratively with another tree", () => {
+                // Arrange
+                let anotherTree = Tree();
+                anotherTree.addMany(10, 1, 0, 2, 20, 15, 14, 16, 30, 25, 35);
+                /* 
+                 *     10 
+                 *    /  \
+                 *   1    20
+                 *  / \   / \
+                 * 0   2  15  30
+                 *       /  \  / \
+                 *      14  16 25 35
+                 *
+                 */
+                let nodesTraversed = [];
+                // Act 
+                anotherTree.traversePreOrderIteratively((n) => nodesTraversed.push(n.value));
+                // Assert
+                expect(nodesTraversed.join(',')).toBe('10,1,0,2,20,15,14,16,30,25,35');
+            });
+
+
             it("I should be able to traverse it in In-order", () => {
                 // Arrange
                 let nodesTraversed = [];

@@ -11,6 +11,7 @@ function Tree(value){
         addRecursively,
         addMany,
         traversePreOrder,
+        traversePreOrderIteratively,
         traverseInOrder,
         traversePostOrder
     };
@@ -84,6 +85,33 @@ function Tree(value){
         }
     }
 
+    function traversePreOrderIteratively(processNode){
+        let stack = Stack(); // => global namespace haha!
+
+        // for each node: 
+        // - process node
+        // - go left
+        // - go right
+
+        let currentNode = root;
+        while(currentNode){
+            // process Node
+            processNode(currentNode);
+            // go left
+            if (currentNode.left){
+                // push into stack to go right later
+                stack.push(currentNode.right); 
+                currentNode = currentNode.left;
+            } else if (currentNode.right) {
+                // only right node
+                currentNode = currentNode.right;
+            } else {
+                // leave (go back)
+                if (stack.isEmpty()){ currentNode = undefined;}
+                else {currentNode = stack.pop();}
+            }
+        }
+    }
 }
 
 // TODO: Need to setup ES6 modules

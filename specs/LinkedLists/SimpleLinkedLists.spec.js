@@ -28,7 +28,7 @@ describe("Linked Lists", () => {
         // Arrange, Act
         var l = LinkedList();
         // Assert
-        expect(l.head).toBeUndefined();
+        expect(l.head).toBe(null);
     });
 
     it("Should be able to create a Linked List from a single item which would be its head", () => {
@@ -201,6 +201,7 @@ describe("Linked Lists", () => {
  * - pop
  * - push
  * - hasItem => for testing
+ * - isEmpty
  *
  */
 
@@ -244,6 +245,44 @@ describe("Stack", () => {
         var value = stack.pop();
         // Assert
         expect(value).toBe(2);
+    });
+
+    describe("isEmpty", () => {
+        describe("When we have an empty stack", () => {
+            it("Should return true", () => {
+                // Arrange
+                var stack = Stack();
+                // Act
+                var isEmpty = stack.isEmpty();
+                // Assert
+                expect(isEmpty).toBe(true);
+            });
+        });
+
+        describe("When we have an stack with items", () => {
+            it("Should return false", () => {
+                // Arrange
+                var stack = Stack();
+                stack.push(22);
+                // Act
+                var isEmpty = stack.isEmpty();
+                // Assert
+                expect(isEmpty).toBe(false);
+            });
+        });
+
+        describe("When we have an stack with items and then remove all items", () => {
+            it("Should return true", () => {
+                // Arrange
+                var stack = Stack();
+                stack.push(22);
+                stack.pop();
+                // Act
+                var isEmpty = stack.isEmpty();
+                // Assert
+                expect(isEmpty).toBe(true);
+            });
+        });
     });
 
 });
