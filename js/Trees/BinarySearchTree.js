@@ -8,7 +8,8 @@ function Tree(value){
     return {
         get root() { return root;},
         add,
-        addRecursively
+        addRecursively,
+        addMany
     };
 
     function add(value){
@@ -16,14 +17,11 @@ function Tree(value){
 
         let tree = getBinarySearchTreeIterator(root, value);
         for (let currentNode of tree){
-            if (value < currentNode.value && !currentNode.left){
+            if (value <= currentNode.value && !currentNode.left){
                 return currentNode.left = TreeNode(value);
             } else if (value > currentNode.value && !currentNode.right){
                 return currentNode.right = TreeNode(value);
-            } else {
-                if (!currentNode.left) { return currentNode.left = TreeNode(value);}
-                if (!currentNode.right) { return currentNode.right = TreeNode(value);}
-            }
+            } 
         }
 
     }
@@ -47,6 +45,10 @@ function Tree(value){
            return addRecursivelyOnNode(node.right, value);
         }
         throw new Error();
+    }
+
+    function addMany(...values){
+        values.forEach(value => addRecursively(value));
     }
 }
 

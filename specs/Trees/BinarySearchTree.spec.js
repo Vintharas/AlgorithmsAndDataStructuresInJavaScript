@@ -20,7 +20,10 @@
  * - Having a tree with two leaves
  *   - add item 
  *   - add item (implement recursively)
- *
+ * - Traversal
+ *   - pre-order
+ *   - in-order
+ *   - post-order
  */
 
 describe("Binary Search Tree", () => {
@@ -70,6 +73,11 @@ describe("Binary Search Tree", () => {
                 // Arrange, Act
                 tree.add(50);
                 // Assert
+                // 
+                //     10
+                //       \
+                //        50
+                //
                 expect(tree.root.right).toBeDefined();
                 expect(tree.root.right.value).toBe(50);
             });
@@ -80,6 +88,11 @@ describe("Binary Search Tree", () => {
                 // Arrange, Act
                 tree.add(2);
                 // Assert
+                //
+                //     10
+                //    /
+                //   2
+                //
                 expect(tree.root.left).toBeDefined();
                 expect(tree.root.left.value).toBe(2);
             });
@@ -91,6 +104,11 @@ describe("Binary Search Tree", () => {
                     // Arrange, Act
                     tree.add(10);
                     // Assert
+                    //   
+                    //     10
+                    //    /
+                    //  10
+                    //
                     expect(tree.root.left).toBeDefined();
                     expect(tree.root.left.value).toBe(10);
                 });
@@ -98,14 +116,19 @@ describe("Binary Search Tree", () => {
 
             describe("When there's a node as its left child", () => {
                 beforeEach(() => tree.add(1));
-                describe("And no node as its right child", () => {
-                    it("should be added as its right child", () => {
-                        // Arrange, Act
-                        tree.add(10);
-                        // Assert
-                        expect(tree.root.right).toBeDefined();
-                        expect(tree.root.right.value).toBe(10);
-                    });
+                it("should be added as its left child's right child", () => {
+                    // Arrange, Act
+                    tree.add(10);
+                    // Assert
+                    //      10
+                    //     /
+                    //    1
+                    //     \
+                    //      10
+                    //
+                    //
+                    expect(tree.root.left.right).toBeDefined();
+                    expect(tree.root.left.right.value).toBe(10);
                 });
             });
 
@@ -162,5 +185,32 @@ describe("Binary Search Tree", () => {
         });
     
     });
+
+    describe("addMany", () => {
+        describe("Given that I have an empty tree", () => {
+            describe("When I add many items at once", () => {
+                it("The first one should be the tree root and the rest should be ordered according to size" , () => {
+                    // Arrange
+                    let tree = Tree(0);          
+                    // Act
+                    tree.addMany(10, 1, 2, 20, 30);
+                    /* 
+                     *     10 
+                     *    /  \
+                     *   1    20
+                     *    \     \
+                     *     2     30
+                     */
+                    // Assert
+                    expect(tree.root.value).toBe(10);
+                    expect(tree.root.left.value).toBe(1);
+                    expect(tree.root.left.right.value).toBe(2);
+                    expect(tree.root.right.value).toBe(20);
+                    expect(tree.root.right.right.value).toBe(30);
+                });
+            });
+        });
+    });
+
 
 });
