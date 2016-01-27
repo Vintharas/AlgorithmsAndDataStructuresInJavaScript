@@ -9,7 +9,10 @@ function Tree(value){
         get root() { return root;},
         add,
         addRecursively,
-        addMany
+        addMany,
+        traversePreOrder,
+        traverseInOrder,
+        traversePostOrder
     };
 
     function add(value){
@@ -50,6 +53,37 @@ function Tree(value){
     function addMany(...values){
         values.forEach(value => addRecursively(value));
     }
+
+    function traversePreOrder(processNode){
+        traverse(root, processNode);
+
+        function traverse(node, processNode){
+            processNode(node);
+            if (node.left) traverse(node.left, processNode);
+            if (node.right) traverse(node.right, processNode);
+        }
+    }
+
+    function traverseInOrder(processNode){
+        traverse(root, processNode);
+
+        function traverse(node, processNode){
+            if (node.left) traverse(node.left, processNode);
+            processNode(node);
+            if (node.right) traverse(node.right, processNode);
+        }
+    }
+
+    function traversePostOrder(processNode){
+        traverse(root, processNode);
+
+        function traverse(node, processNode){
+            if (node.left) traverse(node.left, processNode);
+            if (node.right) traverse(node.right, processNode);
+            processNode(node);
+        }
+    }
+
 }
 
 // TODO: Need to setup ES6 modules

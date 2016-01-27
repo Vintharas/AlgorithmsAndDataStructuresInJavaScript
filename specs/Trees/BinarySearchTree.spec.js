@@ -212,5 +212,50 @@ describe("Binary Search Tree", () => {
         });
     });
 
+    describe("BST Travesals", () => {
+        describe("Given that I have a BST with some nodes", () => {
+            let tree;
+
+            beforeEach(() => {
+                tree = Tree();
+                tree.addMany(10, 1, 2, 20, 30);
+                /* 
+                 *     10 
+                 *    /  \
+                 *   1    20
+                 *    \     \
+                 *     2     30
+                 */
+            });
+
+            it("I should be able to traverse it in Pre-order", () => {
+                // Arrange
+                let nodesTraversed = [];
+                // Act 
+                tree.traversePreOrder((n) => nodesTraversed.push(n.value));
+                // Assert
+                expect(nodesTraversed.join(',')).toBe('10,1,2,20,30');
+            });
+
+            it("I should be able to traverse it in In-order", () => {
+                // Arrange
+                let nodesTraversed = [];
+                // Act 
+                tree.traverseInOrder((n) => nodesTraversed.push(n.value));
+                // Assert
+                expect(nodesTraversed.join(',')).toBe('1,2,10,20,30');
+            });
+
+            it("I should be able to traverse it in Post-order", () => {
+                // Arrange
+                let nodesTraversed = [];
+                // Act 
+                tree.traversePostOrder((n) => nodesTraversed.push(n.value));
+                // Assert
+                expect(nodesTraversed.join(',')).toBe('2,1,30,20,10');
+            });
+
+        });
+    });
 
 });
