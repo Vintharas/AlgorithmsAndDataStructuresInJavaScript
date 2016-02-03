@@ -14,7 +14,8 @@ function Tree(value){
         traversePreOrderIteratively,
         traverseInOrder,
         traversePostOrder,
-        find
+        find,
+        findRecursively
     };
 
     function add(value){
@@ -123,7 +124,16 @@ function Tree(value){
     }
 
     function findRecursively(value){
+        return findRecursivelyInNode(root, value);
     }
+
+    function findRecursivelyInNode(node, value){
+        if (!node) throw Error(`Node with value ${value} was not found!`);
+        if (node.value === value) return node;
+        if (value > node.value) return findRecursivelyInNode(node.right, value);
+        if (value < node.value) return findRecursivelyInNode(node.left, value);
+    }
+
 }
 
 // TODO: Need to setup ES6 modules

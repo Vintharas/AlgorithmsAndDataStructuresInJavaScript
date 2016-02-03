@@ -332,4 +332,45 @@ describe("Binary Search Tree", () => {
         });
     });
 
+    describe("findRecursively", () => {
+        describe("Given that I have an BST with several nodes", () => {
+            describe("When I try to find an item that is within the tree", () => {
+                it("Should be able to find it" , () => {
+                    // Arrange
+                    let tree = Tree();          
+                    tree.addMany(10, 1, 2, 20, 30);
+                    /* 
+                     *     10 
+                     *    /  \
+                     *   1    20
+                     *    \     \
+                     *     2     30
+                     */
+                    // Act
+                    var node = tree.findRecursively(30);
+                    // Assert
+                    expect(node.value).toBe(30);
+                });
+            });
+
+            describe("When I try to find an item that is NOT within the tree", () => {
+                it("Should throw an error" , () => {
+                    // Arrange
+                    let tree = Tree();          
+                    tree.addMany(10, 1, 2, 20, 30);
+                    /* 
+                     *     10 
+                     *    /  \
+                     *   1    20
+                     *    \     \
+                     *     2     30
+                     */
+                    // Act, Assert
+                    expect(() => tree.findRecursively(10000)).toThrowError();
+                });
+            });
+        });
+    });
+
+
 });
