@@ -20,6 +20,9 @@
  * - Having a tree with two leaves
  *   - add item 
  *   - add item (implement recursively)
+ * - Find
+ *   - find item
+ *   - throw error if item is not found
  * - Traversal
  *   - pre-order
  *   - in-order
@@ -191,7 +194,7 @@ describe("Binary Search Tree", () => {
             describe("When I add many items at once", () => {
                 it("The first one should be the tree root and the rest should be ordered according to size" , () => {
                     // Arrange
-                    let tree = Tree(0);          
+                    let tree = Tree();          
                     // Act
                     tree.addMany(10, 1, 2, 20, 30);
                     /* 
@@ -286,6 +289,46 @@ describe("Binary Search Tree", () => {
                 expect(nodesTraversed.join(',')).toBe('2,1,30,20,10');
             });
 
+        });
+    });
+
+    describe("find", () => {
+        describe("Given that I have an BST with several nodes", () => {
+            describe("When I try to find an item that is within the tree", () => {
+                it("Should be able to find it" , () => {
+                    // Arrange
+                    let tree = Tree();          
+                    tree.addMany(10, 1, 2, 20, 30);
+                    /* 
+                     *     10 
+                     *    /  \
+                     *   1    20
+                     *    \     \
+                     *     2     30
+                     */
+                    // Act
+                    var node = tree.find(30);
+                    // Assert
+                    expect(node.value).toBe(30);
+                });
+            });
+
+            describe("When I try to find an item that is NOT within the tree", () => {
+                it("Should throw an error" , () => {
+                    // Arrange
+                    let tree = Tree();          
+                    tree.addMany(10, 1, 2, 20, 30);
+                    /* 
+                     *     10 
+                     *    /  \
+                     *   1    20
+                     *    \     \
+                     *     2     30
+                     */
+                    // Act, Assert
+                    expect(() => tree.find(10000)).toThrowError();
+                });
+            });
         });
     });
 

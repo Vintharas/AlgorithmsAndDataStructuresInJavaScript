@@ -13,7 +13,8 @@ function Tree(value){
         traversePreOrder,
         traversePreOrderIteratively,
         traverseInOrder,
-        traversePostOrder
+        traversePostOrder,
+        find
     };
 
     function add(value){
@@ -111,6 +112,17 @@ function Tree(value){
                 else {currentNode = stack.pop();}
             }
         }
+    }
+
+    function find(value){
+        let nodes = getBinarySearchTreeIterator(root, value);
+        for(let node of nodes){
+            if (node.value === value) return node;
+        }
+        throw Error(`Node with value ${value} was not found!`);
+    }
+
+    function findRecursively(value){
     }
 }
 
