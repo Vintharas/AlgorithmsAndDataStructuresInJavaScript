@@ -7,7 +7,7 @@ class AVLTree {
         this.root = value ? AVLTreeNode(value, null, this) : undefined;
     }
     add(value){
-        console.log('adding AVL node with value: ' + value);
+        l.log('adding AVL node with value: ' + value);
         if (!this.root) this.root = AVLTreeNode(value, null, this)
         else this.addNode(this.root, value)
     }
@@ -43,7 +43,7 @@ function AVLTreeNode(value, parent, tree){
     function isUnbalanced() {
         const height = this.getBalanceFactor();
         const isUnbalanced = Math.abs(height) > 1
-        if (isUnbalanced) console.log('is unbalanced with height: ' + height)
+        if (isUnbalanced) l.log('is unbalanced with height: ' + height)
         return isUnbalanced;
     }
 
@@ -59,7 +59,7 @@ function AVLTreeNode(value, parent, tree){
     }
 
     function balance(){
-        console.log('balancing node with value: ' + this.value);
+        l.log('balancing node with value: ' + this.value);
         if (this.isRightHeavy() && this.right.isLeftHeavy())
             balanceRightLeft(this)
         else if (this.isRightHeavy())
@@ -71,10 +71,10 @@ function AVLTreeNode(value, parent, tree){
     }
 
     function balanceRightLeft(node){
-        console.log('node ' + this + ' needs to be balanced right-left');
+        l.log('node ' + this + ' needs to be balanced right-left');
     }
     function balanceRight(node){
-        console.log('node ' + node.value + ' needs to be balanced right');
+        l.log('node ' + node.value + ' needs to be balanced right');
         let oldRoot = node
         let root = oldRoot.right
         rightChildBecomesRoot(oldRoot, root)
@@ -91,32 +91,34 @@ function AVLTreeNode(value, parent, tree){
             if (root.parent.left === oldRoot) root.parent.left = root;
             if (root.parent.right === oldRoot) root.parent.right = root;
         }
-        console.log(root.value + ' becomes root');
+        l.log(root.value + ' becomes root');
     }
 
     function rightChildLeftsNodeBecomesOldRootRightNode(oldRoot, root){
         if (root.left) {
            oldRoot.right = root.left
            root.left = null
-           console.log(root.left.value + ' becomes old root ' + oldRoot.value + ' right child')
+           l.log(root.left.value + ' becomes old root ' + oldRoot.value + ' right child')
         }
     }
 
     function oldRootBecomesRootLeftNode(oldRoot, root){
         root.left = oldRoot
-        console.log(root.left.value + ' becomes root ' + root.value + ' left child')
+        l.log(root.left.value + ' becomes root ' + root.value + ' left child')
         // #4. if this is the root of the tree, update it
         if (oldRoot.tree.root === oldRoot) { 
-            console.log('change tree root to ' + root.value)
+            l.log('change tree root to ' + root.value)
             oldRoot.tree.root = root
         }
     }
 
     function balanceLeftRight(node){
-        console.log('node ' + this + ' needs to be balanced left-right');
+        l.log('node ' + this + ' needs to be balanced left-right');
     }
     function balanceLeft(node){
-        console.log('node ' + this + ' needs to be balanced left');
+        l.log('node ' + this + ' needs to be balanced left');
     }
 
 }
+
+
