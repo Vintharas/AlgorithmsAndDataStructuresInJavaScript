@@ -75,14 +75,12 @@ describe("Undirected Graph", () => {
             // Assert
             // Edge connects from kevin bacon to tom hanks
             const kevinBacon = graph.find("Kevin Bacon");
-            const node = kevinBacon
-                .nodes
+            const node = Array.from(kevinBacon.nodes)
                 .find(n => n.value === "Tom Hanks");
             expect(node).toBeDefined();
             // And vice versa
             const tomHanks = graph.find("Tom Hanks");
-            const nodeOtherSide = tomHanks
-                .nodes
+            const nodeOtherSide = Array.from(tomHanks.nodes)
                 .find(e => e.value === "Kevin Bacon");
             expect(nodeOtherSide).toBeDefined();
         });
@@ -100,13 +98,74 @@ describe("Undirected Graph", () => {
         });
 
         describe("When I want to calculate the length of shortest path from and to the same node", () => {
-            it("Should be length 0 and empty path", () => {
+            it("Should be length 0", () => {
                 // Arrange, Act
                 const length = graph.findLengthOfShortestPathBetween("Kevin Bacon", "Kevin Bacon");
                 // Assert 
                 expect(length).toBe(0);
             });
         });
+
+        describe("When I want to calculate the length of shortest path between 2 adjacent nodes", () => {
+            it("Should be length 1", () => {
+                // Arrange, Act
+                const length = graph.findLengthOfShortestPathBetween("Kevin Bacon", "Tom Hanks");
+                // Assert 
+                expect(length).toBe(1);
+            });
+        });
+
+        describe("When I want to calculate the length of shortest path between 2 non adjacent nodes", () => {
+            it("Should calculate it", () => {
+                // Arrange, Act
+                const length = graph.findLengthOfShortestPathBetween("Kevin Bacon", "Catherine Z Jones");
+                // Assert 
+                expect(length).toBe(2);
+            });
+        });
+    });
+
+
+    describe("Given that I have a complex graph with 4 nodes and cycles", () => {
+        let graph;
+        beforeEach(() => {
+            graph = UndirectedGraph();
+            graph.addNode("Kevin Bacon");
+            graph.addNode("Tom Hanks");
+            graph.addEdge("Apollo 13", "Kevin Bacon", "Tom Hanks");
+            graph.addNode("Catherine Z Jones");
+            graph.addEdge("The terminal", "Catherine Z Jones", "Tom Hanks");
+            graph.addNode("John Doe");
+            graph.addEdge("Some movie", "John Doe", "Tom Hanks");
+            graph.addEdge("Some movie 2", "John Doe", "Catherine Z Jones");
+        }); 
+
+        describe("When I want to calculate the length of shortest path between 2 non adjacent nodes", () => {
+            it("Should calculate it", () => {
+                // Arrange, Act
+                const length = graph.findLengthOfShortestPathBetween("Kevin Bacon", "John Doe");
+                // Assert 
+                expect(length).toBe(2);
+            });
+        });
+    
     });
 
 });
+
+describe("Visitor", () => {
+    describe("Given that I have an start, end and next nodes", () => {
+        it("I should be able to create a visitor", () => {
+            // Arrange
+            //const startNode = UndirectedGraphNode(1);
+            //const endNode = UndirectedGraphNode(1);
+            // Act
+            // Assert
+        });
+    });
+
+
+});
+
+
+
